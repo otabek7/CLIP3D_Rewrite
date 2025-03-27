@@ -69,12 +69,14 @@ int USB_Exit(void)
  *
  * @return 0 on success, -1 on failure
  */
-int USB_Open()
+int USB_Open(const char *path)
 {
+    printf("USB_Open called with path: %s\n", path);
+
     if(FakeConnection == FALSE)
     {
         struct hid_device_info *hid_info;
-        hid_info = hid_enumerate(MY_VID, MY_PID);
+        hid_info = hid_enumerate(MY_VID, MY_PID, path);
         if(hid_info == NULL)
         {
             USBConnected = FALSE;

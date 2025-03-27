@@ -251,8 +251,9 @@ int HID_API_EXPORT hid_exit(void)
 	return 0;
 }
 
-struct hid_device_info HID_API_EXPORT * HID_API_CALL hid_enumerate(unsigned short vendor_id, unsigned short product_id)
+struct hid_device_info HID_API_EXPORT * HID_API_CALL hid_enumerate(unsigned short vendor_id, unsigned short product_id, const char *path)
 {
+	printf("hid_enumerate\n");
 	BOOL res;
 	struct hid_device_info *root = NULL; /* return object */
 	struct hid_device_info *cur_dev = NULL;
@@ -369,10 +370,11 @@ struct hid_device_info HID_API_EXPORT * HID_API_CALL hid_enumerate(unsigned shor
 		HidD_GetAttributes(write_handle, &attrib);
 		//wprintf(L"Product/Vendor: %x %x\n", attrib.ProductID, attrib.VendorID);
 
-		/* Check the VID/PID to see if we should add this
+		/* Check the VID/PID/Path to see if we should add this
 		   device to the enumeration list. */
 		if ((vendor_id == 0x0 || attrib.VendorID == vendor_id) &&
-		    (product_id == 0x0 || attrib.ProductID == product_id)) {
+		    (product_id == 0x0 || attrib.ProductID == product_id) && 
+			(strcmp(path, device_interface_detail_data->DevicePath) == 0)) {
 
 			#define WSTR_LEN 512
 			const char *str;
@@ -499,14 +501,14 @@ void  HID_API_EXPORT HID_API_CALL hid_free_enumeration(struct hid_device_info *d
 }
 
 
-HID_API_EXPORT hid_device * HID_API_CALL hid_open(unsigned short vendor_id, unsigned short product_id, const wchar_t *serial_number)
+HID_API_EXPORT hid_device * HID_API_CALL hid_open(unsigned short vendor_id, unsigned short product_id, const wchar_t *serial_number, const char *path)
 {
 	/* TODO: Merge this functions with the Linux version. This function should be platform independent. */
 	struct hid_device_info *devs, *cur_dev;
 	const char *path_to_open = NULL;
 	hid_device *handle = NULL;
 	
-	devs = hid_enumerate(vendor_id, product_id);
+    devs = hid_enumerate(vendor_id, product_id, *path);
 	cur_dev = devs;
 	while (cur_dev) {
 		if (cur_dev->vendor_id == vendor_id &&

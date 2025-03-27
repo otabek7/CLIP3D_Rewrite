@@ -45,6 +45,8 @@ class MainWindow : public QMainWindow {
 
   void on_LightEngineConnectButton_clicked();
 
+  void on_LightEngineDMD2ConnectButton_clicked();
+
   void ExposureTimeSlot();
 
   void DarkTimeSlot();
