@@ -631,7 +631,7 @@ void MainWindow::on_LogFileBrowse_clicked() {
  * no errors have occured and connection is working
  */
 void MainWindow::on_LightEngineConnectButton_clicked() {
-  const char* target_path1 = "\\\\?\\hid#vid_0451&pid_c900&mi_00#7&2df3eb23&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}";
+  const char* target_path1 = "\\\\?\\hid#vid_0451&pid_c900&mi_00#7&2d1e145&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}";
 
   if (DLP.InitProjector(target_path1)) {  // if connection was succesful
     PrintToTerminal("Light Engine Connected");
@@ -658,8 +658,8 @@ void MainWindow::on_LightEngineDMD2ConnectButton_clicked() {
 
   if (DLP2.InitProjector(target_path2)) {  // if connection was succesful
     PrintToTerminal("Light Engine DMD2 Connected");
-    ui->LightEngineIndicator->setStyleSheet("background:rgb(0, 255, 0); border: 1px solid black;");
-    ui->LightEngineIndicator->setText("Connected");
+    ui->LightEngineDMD2Indicator->setStyleSheet("background:rgb(0, 255, 0); border: 1px solid black;");
+    ui->LightEngineDMD2Indicator->setText("Connected");
     m_PrintControls.lightConnect = ON;
 
     // Check for light engine errors
@@ -671,8 +671,8 @@ void MainWindow::on_LightEngineDMD2ConnectButton_clicked() {
     }
   } else {
     PrintToTerminal("Light Engine DMD2 Connection Failed");
-    ui->LightEngineIndicator->setStyleSheet("background:rgb(255, 0, 0); border: 1px solid black;");
-    ui->LightEngineIndicator->setText("Disconnected");
+    ui->LightEngineDMD2Indicator->setStyleSheet("background:rgb(255, 0, 0); border: 1px solid black;");
+    ui->LightEngineDMD2Indicator->setText("Disconnected");
   }
 }
 

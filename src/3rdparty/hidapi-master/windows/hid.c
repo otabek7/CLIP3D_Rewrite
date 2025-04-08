@@ -373,8 +373,8 @@ struct hid_device_info HID_API_EXPORT * HID_API_CALL hid_enumerate(unsigned shor
 		/* Check the VID/PID/Path to see if we should add this
 		   device to the enumeration list. */
 		if ((vendor_id == 0x0 || attrib.VendorID == vendor_id) &&
-		    (product_id == 0x0 || attrib.ProductID == product_id) && 
-			(strcmp(path, device_interface_detail_data->DevicePath) == 0)) {
+            (product_id == 0x0 || attrib.ProductID == product_id) &&
+            (strcmp(path, device_interface_detail_data->DevicePath) == 0)) { //Otabek added this
 
 			#define WSTR_LEN 512
 			const char *str;
